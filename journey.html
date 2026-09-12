@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journey — Priyanshu Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="glow" id="glow"></div>
+  <div class="wrap">
+
+    <nav class="top">
+      <a href="index.html">home</a>
+      <a href="journey.html" aria-current="page">journey</a>
+      <a href="https://doi.org/10.5281/zenodo.22715269">paper</a>
+    </nav>
+
+    <h1 class="rise" style="font-size:34px;">journey</h1>
+    <p class="lede rise" style="animation-delay:.1s;">a running log, not a highlight reel. added whenever something's actually worth writing down.</p>
+
+    <div class="timeline" id="timeline">
+      <p class="muted mono" style="font-size:13px;">loading…</p>
+    </div>
+
+    <hr class="rule">
+    <p class="muted" style="font-size:13px;">Adding a new entry doesn't need any code — see <code class="mono" style="background:var(--panel); padding:2px 6px; border-radius:3px;">admin.html</code> in the repo, or just edit <code class="mono" style="background:var(--panel); padding:2px 6px; border-radius:3px;">journey.json</code> directly on GitHub.</p>
+
+    <footer class="page">India</footer>
+  </div>
+
+<script>
+  (function(){
+    var glow = document.getElementById('glow');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduced && !window.matchMedia('(hover: none)').matches){
+      window.addEventListener('mousemove', function(e){
+        glow.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px) translate(-50%,-50%)';
+      });
+    }
+  })();
+
+  fetch('journey.json')
+    .then(function(r){ return r.json(); })
+    .then(function(entries){
+      var el = document.getElementById('timeline');
+      el.innerHTML = '';
+      entries.forEach(function(e){
+        var div = document.createElement('div');
+        div.className = 'entry';
+        var linkHtml = e.link ? '<a href="' + e.link + '">' + (e.linkText || 'link') + ' →</a>' : '';
+        var tagHtml = e.tag ? '<span class="tag">' + e.tag + '</span><br>' : '';
+        div.innerHTML =
+          '<span class="date">' + e.date + '</span>' +
+          tagHtml +
+          '<h3>' + e.title + '</h3>' +
+          '<p>' + e.note + '</p>' +
+          linkHtml;
+        el.appendChild(div);
+      });
+      // reveal-on-scroll, one consistent trigger reused for every entry
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduced){
+        document.querySelectorAll('.entry').forEach(function(x){ x.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(items){
+        items.forEach(function(it){
+          if(it.isIntersecting){ it.target.classList.add('in'); io.unobserve(it.target); }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.entry').forEach(function(x){ io.observe(x); });
+    })
+    .catch(function(){
+      document.getElementById('timeline').innerHTML =
+        '<p class="muted">journey.json didn\'t load — if you just opened this file locally, run a local server instead of double-clicking it (browsers block fetch() on file:// paths). On GitHub Pages this works normally.</p>';
+    });
+</script>
+</body>
+</html>
