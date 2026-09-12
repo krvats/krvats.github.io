@@ -1,0 +1,27 @@
+[
+  {
+    "date": "2026-09",
+    "tag": "paper",
+    "title": "Paper went live",
+    "note": "Zenodo DOI issued. The part where it stops being a video script and starts being a citable thing with my name on it.",
+    "link": "https://doi.org/10.5281/zenodo.22715269",
+    "linkText": "read it"
+  },
+  {
+    "date": "2026-07",
+    "tag": "discovery",
+    "title": "Found the fifth formula",
+    "note": "Row 71 was the last one to fall into place. Verified against π to 40+ digits before I let myself believe it.",
+    "link": "",
+    "linkText": ""
+  },
+  {
+    "date": "2025-11",
+    "tag": "video",
+    "title": "Started the Ramanujan breakdown",
+    "note": "What was supposed to be one video about an ellipse's perimeter turned into a full reconstruction of a 1914 paper. Worth it.",
+    "link": "https://youtube.com/@kirakira91625",
+    "linkText": "watch it"
+  }
+]
+
