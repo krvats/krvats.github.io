@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>admin — journey entry generator</title>
+<title>admin — notebook entry generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Karla:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -32,10 +32,14 @@
 </head>
 <body>
   <div class="wrap" style="max-width:560px;">
-    <nav class="top"><a href="index.html">home</a><a href="journey.html">journey</a></nav>
+    <nav class="top"><a href="index.html">home</a><a href="notebook.html">notebook</a></nav>
 
-    <h1 style="font-size:28px;">journey entry generator</h1>
-    <p class="muted" style="margin-bottom:8px;">Fill this in, copy the result, paste it into <code class="mono">journey.json</code> on GitHub (open the file → pencil icon to edit → paste at the top of the list, inside the square brackets, followed by a comma). No other file needs to change. This page is just a local tool — it doesn't publish anything by itself.</p>
+    <div style="border:1px solid var(--accent-dim); background:rgba(224,168,63,0.06); border-radius:6px; padding:14px 16px; margin-bottom:28px; font-size:13.5px; color:var(--muted);">
+      <strong style="color:var(--accent);">Not part of the published site.</strong> This page has no backend — it can't save or publish anything by itself, it only writes text into the box below, in your own browser. Even so: don't commit this file to your GitHub Pages repo. Keep it on your computer and open it locally (double-click it) whenever you want to draft a new entry, so there's nothing sitting at a guessable URL on your live site at all.
+    </div>
+
+    <h1 style="font-size:28px;">notebook entry generator</h1>
+    <p class="muted" style="margin-bottom:8px;">Fill this in, copy the result, paste it into <code class="mono">notebook.json</code> on GitHub (open the file → pencil icon to edit → paste at the top of the list, inside the square brackets, followed by a comma). No other file needs to change.</p>
 
     <label for="date">date (YYYY-MM)</label>
     <input id="date" placeholder="2026-09">
