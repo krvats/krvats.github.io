@@ -31,9 +31,109 @@
     </div>
 
     <p class="lede rise" style="animation-delay:.2s;">number theory, mostly. also whatever JEE throws at me this week.</p>
-  .serif{ font-family: 'Fraunces', serif; }
 
-  /* ---- hero ---- */
+    <div class="pills rise" style="animation-delay:.25s;">
+      <span class="pill">number theory</span>
+      <span class="pill">elliptic integrals</span>
+      <span class="pill">Ramanujan-type series</span>
+      <span class="pill">JEE 2028</span>
+    </div>
+
+    <p class="rise" style="animation-delay:.35s;">Most days look like: physics problem set, a wrong turn somewhere in an integral, tea, try again. Some nights look like: still awake, still on the same page of a 1914 paper, refusing to move on until the step actually makes sense instead of just looking plausible.</p>
+
+    <p class="muted rise" style="animation-delay:.45s;">That second kind of night is how the Ramanujan thing happened. I wasn't trying to publish anything — I just wanted to know <em>why</em> his formulas worked, not just that they did. Turned out nobody had fully written that "why" down in one place. So I did, then kept going until I found something nobody had written down at all.</p>
+
+    <p class="rise" style="animation-delay:.5s;">I also make math videos as <strong style="color:var(--text)">Kira Kira</strong> — animated, occasionally unhinged, allegedly educational.</p>
+
+    <hr class="rule">
+
+    <h2 class="rise">what I've been building</h2>
+    <div class="tilt-card rise" id="tiltCard">
+      <h3>Reconstructing and Extending Ramanujan's 1914 Series for 1/π</h3>
+      <p>Every missing step in Ramanujan's Equation 3, proved from scratch. Then five series for 1/π that weren't in his published work at all — found in an unfinished table in his notebooks, checked to 40+ decimal digits so nobody has to take my word for it.</p>
+      <div class="meta">
+        <span>Zenodo preprint · 2026</span>
+        <span><a class="doi" href="https://doi.org/10.5281/zenodo.22715269">doi.org/10.5281/zenodo.22715269</a></span>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <h2 class="rise">elsewhere</h2>
+    <ul class="linkgrid rise">
+      <li><a href="https://youtube.com/@kirakira91625">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg>
+        YouTube</a></li>
+      <li><a href="https://doi.org/10.5281/zenodo.22715269">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2.5h9l4 4v15H6z"/><path d="M15 2.5v4h4"/><path d="M9 13.5h7M9 17h7M9 10h3"/></svg>
+        Research (DOI)</a></li>
+      <li><a href="https://orcid.org/0009-0000-9941-3267">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><circle cx="9.2" cy="8.6" r="0.9" fill="currentColor" stroke="none"/><path d="M9.2 11v6.2M13 11v3.6c0 1.6 1.2 2.6 2.6 2.6S18 16.2 18 14.6 16.8 11 15.4 11H13z"/></svg>
+        ORCID</a></li>
+      <li><a href="https://github.com/">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 20.5V17c-3.2.8-4-1.5-4-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.3 1 .1-.8.4-1.3.7-1.6-2.5-.3-5.2-1.3-5.2-5.6 0-1.2.4-2.2 1.2-3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C15.9 2 16.9 2.3 16.9 2.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3 0 4.3-2.7 5.3-5.2 5.6.4.4.8 1.1.8 2.2V20.5"/></svg>
+        GitHub</a></li>
+    </ul>
+
+    <footer class="page">India · last touched this page {LASTUPDATED}</footer>
+  </div>
+
+<script>
+  // if you have a real photo, replace this block:
+  //   <div class="avatar" id="avatar">PK</div>
+  // with:
+  //   <div class="avatar" id="avatar"><img src="me.jpg" alt="Priyanshu Kumar"></div>
+</script>
+
+
+<script>
+  // ambient cursor glow — one continuous interactive layer instead of
+  // scattered one-off hover effects on individual elements
+  (function(){
+    var glow = document.getElementById('glow');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced || window.matchMedia('(hover: none)').matches) return;
+    window.addEventListener('mousemove', function(e){
+      glow.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px) translate(-50%,-50%)';
+    });
+  })();
+
+  // subtle tilt on the featured work card, mouse-position driven
+  (function(){
+    var card = document.getElementById('tiltCard');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced || window.matchMedia('(hover: none)').matches) return;
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = 'perspective(600px) rotateY(' + (x*4) + 'deg) rotateX(' + (-y*4) + 'deg)';
+    });
+    card.addEventListener('mouseleave', function(){
+      card.style.transform = 'perspective(600px) rotateY(0) rotateX(0)';
+    });
+  })();
+
+  // hero: pi digits typed once on load, subject-grounded rather than decorative
+  (function(){
+    var el = document.getElementById('heroEq');
+    var digits = "3.14159265358979323846";
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced){ el.textContent = "π"; return; }
+    var i = 0;
+    function tick(){
+      if(i <= digits.length){ el.textContent = digits.slice(0, i); i++; setTimeout(tick, 40); }
+    }
+    setTimeout(tick, 350);
+  })();
+
+  // footer date, filled in automatically — no manual editing needed
+  document.querySelector('footer').innerHTML =
+    document.querySelector('footer').innerHTML.replace('{LASTUPDATED}',
+      new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }));
+</script>
+</body>
+</html>
   .hero-eq{
     font-family: 'Space Grotesk', sans-serif;
     font-size: 14px;
