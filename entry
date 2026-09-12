@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notebook entry — Priyanshu Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* minimal centered treatment, deliberately simpler than the rest of the site */
+  .entry-wrap{
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 110px 24px 90px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .entry-wrap .avatar{ margin: 0 auto 28px; width: 56px; height: 56px; font-size: 19px; }
+  .entry-wrap .date{ display:block; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); margin-bottom: 10px; }
+  .entry-wrap .tag{ display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--accent); border:1px solid var(--accent-dim); border-radius:20px; padding:2px 10px; margin-bottom:16px; }
+  .entry-wrap h1{
+    font-style: italic;
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+  .entry-wrap p{ color: var(--text); font-size: 16px; text-align: left; }
+  .entry-wrap .back{
+    display:inline-block; margin-top: 40px; font-size: 14px; color: var(--muted);
+    text-decoration:none; border-bottom:1px solid transparent;
+  }
+  .entry-wrap .back:hover{ color: var(--accent); border-bottom-color: var(--accent-dim); }
+</style>
+</head>
+<body>
+  <div class="glow" id="glow"></div>
+  <div class="entry-wrap" id="content">
+    <p class="muted mono" style="font-size:13px;">loading…</p>
+  </div>
+
+<script>
+  (function(){
+    var glow = document.getElementById('glow');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduced && !window.matchMedia('(hover: none)').matches){
+      window.addEventListener('mousemove', function(e){
+        glow.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px) translate(-50%,-50%)';
+      });
+    }
+  })();
+
+  var params = new URLSearchParams(window.location.search);
+  var i = parseInt(params.get('i'), 10);
+
+  fetch('notebook.json')
+    .then(function(r){ return r.json(); })
+    .then(function(entries){
+      var e = entries[i];
+      var el = document.getElementById('content');
+      if(!e){
+        el.innerHTML = '<p class="muted">Couldn\'t find that entry.</p><a class="back" href="notebook.html">← back to notebook</a>';
+        return;
+      }
+      var tagHtml = e.tag ? '<span class="tag">' + e.tag + '</span>' : '';
+      var linkHtml = e.link ? '<p style="text-align:center; margin-top:20px;"><a class="back" style="color:var(--accent); border-bottom-color:var(--accent-dim);" href="' + e.link + '">' + (e.linkText || 'link') + ' →</a></p>' : '';
+      document.title = e.title + ' — Priyanshu Kumar';
+      el.innerHTML =
+        '<div class="avatar">PK</div>' +
+        '<span class="date">' + e.date + '</span>' +
+        tagHtml +
+        '<h1 class="serif">' + e.title + '</h1>' +
+        '<p>' + e.note + '</p>' +
+        linkHtml +
+        '<a class="back" href="notebook.html">← back to notebook</a>';
+    })
+    .catch(function(){
+      document.getElementById('content').innerHTML =
+        '<p class="muted">notebook.json didn\'t load — open this site through GitHub Pages rather than as a local file.</p><a class="back" href="notebook.html">← back to notebook</a>';
+    });
+</script>
+</body>
+</html>
