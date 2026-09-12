@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>admin — journey entry generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Karla:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); margin: 20px 0 6px; }
+  input, textarea{
+    width:100%; background:var(--panel); border:1px solid var(--hairline); color:var(--text);
+    font-family:'Karla',sans-serif; font-size:15px; padding:10px 12px; border-radius:4px;
+  }
+  textarea{ min-height:80px; resize:vertical; }
+  button{
+    margin-top:24px; background:var(--accent); color:#1a1206; border:none;
+    font-family:'Karla',sans-serif; font-weight:600; font-size:15px; padding:12px 20px;
+    border-radius:4px; cursor:pointer;
+  }
+  button:hover{ background:var(--glow); }
+  pre{
+    margin-top:28px; background:var(--bg-deep); border:1px solid var(--hairline); border-radius:4px;
+    padding:16px; font-family:'IBM Plex Mono',monospace; font-size:13px; white-space:pre-wrap;
+    word-break:break-word; color:var(--text);
+  }
+  .copybtn{ margin-top:10px; background:transparent; border:1px solid var(--hairline); color:var(--muted); font-weight:400; }
+  .copybtn:hover{ background:var(--panel); color:var(--text); }
+</style>
+</head>
+<body>
+  <div class="wrap" style="max-width:560px;">
+    <nav class="top"><a href="index.html">home</a><a href="journey.html">journey</a></nav>
+
+    <h1 style="font-size:28px;">journey entry generator</h1>
+    <p class="muted" style="margin-bottom:8px;">Fill this in, copy the result, paste it into <code class="mono">journey.json</code> on GitHub (open the file → pencil icon to edit → paste at the top of the list, inside the square brackets, followed by a comma). No other file needs to change. This page is just a local tool — it doesn't publish anything by itself.</p>
+
+    <label for="date">date (YYYY-MM)</label>
+    <input id="date" placeholder="2026-09">
+
+    <label for="title">title</label>
+    <input id="title" placeholder="short and specific">
+
+    <label for="note">note — your actual voice, a sentence or two</label>
+    <textarea id="note" placeholder="what happened, why it mattered, how it felt"></textarea>
+
+    <label for="tag">tag (optional — e.g. paper / video / discovery)</label>
+    <input id="tag" placeholder="discovery">
+
+    <label for="link">link (optional)</label>
+    <input id="link" placeholder="https://...">
+
+    <label for="linkText">link text (optional)</label>
+    <input id="linkText" placeholder="watch it / read it / see it">
+
+    <button onclick="generate()">generate entry</button>
+
+    <pre id="output" style="display:none;"></pre>
+    <button class="copybtn" id="copyBtn" style="display:none;" onclick="copyOut()">copy to clipboard</button>
+  </div>
+
+<script>
+function generate(){
+  var entry = {
+    date: document.getElementById('date').value || 'YYYY-MM',
+    tag: document.getElementById('tag').value || '',
+    title: document.getElementById('title').value || 'untitled',
+    note: document.getElementById('note').value || '',
+    link: document.getElementById('link').value || '',
+    linkText: document.getElementById('linkText').value || ''
+  };
+  var json = JSON.stringify(entry, null, 2) + ',';
+  var out = document.getElementById('output');
+  out.textContent = json;
+  out.style.display = 'block';
+  document.getElementById('copyBtn').style.display = 'inline-block';
+}
+function copyOut(){
+  navigator.clipboard.writeText(document.getElementById('output').textContent);
+  var btn = document.getElementById('copyBtn');
+  var old = btn.textContent;
+  btn.textContent = 'copied';
+  setTimeout(function(){ btn.textContent = old; }, 1200);
+}
+</script>
+</body>
+</html>
